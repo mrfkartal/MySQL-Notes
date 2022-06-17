@@ -69,7 +69,7 @@ select * from personel where id>=1002 and id<=1005;
 select * from personel where id ='1001' or id='1002' or id='1004';
 select * from personel where id in(1001,1002,1004);
 
--- or ile in arasinda ki fark yukarda gozukmektedir.personelpersonelpersonelpersonelpersonelpersonelpersonel
+-- or ile in arasinda ki fark yukarda gozukmektedir.
 -- in
 -- birden fazla ifade ile tanimlayabileceğimiz durumlarda kullailir.
 -- or: belirtilen şartlar gerçekleşirse kayit listeler
