@@ -76,11 +76,24 @@ select * from kisiler where id>10 and id<=12;
 select * from kisiler order by maas desc;
 select * from kisiler order by maas desc limit 3;
 
+/* Oracle SQL Çözümü
+select * from kisiler order by maas desc
+fetch next 3 rows only;
+*/
+
 
 -- MAAŞ'a göre sıralamada 4. 5.  6. kişilerin bilgilerini listeleyen sorguyu yazınız.
 select * from kisiler order by maas desc limit 3,3;
 -- ilk 3 rakami 4. degeri al demek
--- iknci 3 rakamda 4,5,6 y al
+-- iknci 3 rakamda 4,5,6 yi al.
+
+/* Oracle SQL Çözümü
+select * from kisiler order by maas desc
+OFFSET 3 ROWS			--> ilk 3 kaydı atladık
+FETCH NEXT 3 ROWS ONLY;	--> sonraki 3 kisiyi getir
+*/
+
 
 -- MAAŞ'a göre sıralamada 7. 8. 9. kişilerin bilgilerini listeleyen sorguyu yazınız.
 select * from kisiler order by maas desc limit 6,3;
+
