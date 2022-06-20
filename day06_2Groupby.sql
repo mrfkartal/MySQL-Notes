@@ -125,24 +125,35 @@ INSERT INTO manav VALUES( 'Veli', 'Elma', 3);
 INSERT INTO manav VALUES( 'Ayse', 'Uzum', 4);
 INSERT INTO manav VALUES( 'Ali', null, 2);
 
+select * from manav;
+
 
 -- SORU10: kisi ismine ve urun adına göre satılan ürünlerin toplamını
 --  gruplandıran ve isime göre ters sırasıda listeyen sorguyu yazınız.
-
+select isim, urun_adi, sum(urun_miktari) as toplam_urun from manav group by isim, urun_adi 
+order by isim desc;
 
 -- SORU11: Kişi ismine ve ürün adına göre (gruplayarak) satılan ürünleri toplamını bulan
 -- ve bu toplam değeri 3 ve fazlası olan kayıtları, toplam ürün miktarına göre büyükten küçüğe listeleyiniz.
+select isim, urun_adi, sum(urun_miktari) as Toplam_Urun  from manav 
+group by isim, urun_adi
+having Toplam_Urun >=3
+order by Toplam_Urun desc;
+
+-- ****aggregate fonksiyon kullandiysak, group by dan  where yerine having kullanacagiz.****
+-- where kullanamayiz cunku sum(urun_miktari) as toplam_urun 
+-- toplam_urun'u where ile kullanamayiz. cunku aggregate fonksiyondan geliyor.
 
 
 
 -- SORU12: Satılan urun_adi'na göre gruplayarak MAX ürün sayılarını sıralayarak listeleyen sorgu yazınız.
 -- NOT: Sorgu sadece MAX urun_miktari MIN urun_miktari na eşit olmayan kayıtları listelemelidir.
 
-
-
-
-
-
+select urun_adi, max(urun_miktari)
+from manav
+group by urun_adi
+having max(urun_miktari) <> min (urun_miktari) -- <> yerine != kullanilabilir.
+order by max(urun_miktari);
 
 
 
@@ -157,15 +168,18 @@ INSERT INTO manav VALUES( 'Ali', null, 2);
     FROM tablo_adı;
 ======================================================================================= */
 
--- Satılan meyve türlerinin sayısını listeleyen sorgu
 
+-- Satılan meyve türlerinin sayısını listeleyen sorgu
+select urun_adi from manav; 
+
+select distinct urun_adi from manav;
 
 
 -- Satılan farklı meyve türlerinin sayısını listeleyen sorgu
-
+select count(distinct urun_adi) as toplam_meyve_sayisi from manav;
 
 -- satılan meyve + isimleri farklı olanları listeleyen sorgu
-
+select distinct urun_adi, isim from manav;
 
 
 -- satılan meyvelerin urun_miktarlarının benzersiz olanlarının toplamlarını listeleyen sorgu
