@@ -51,8 +51,17 @@ select * from qa_dersler;
 
 select * from developer_dersler;
 
+
 -- ortak dersler
 
+select qa_dersler.ders_id, qa_dersler.ders_ismi, qa_dersler.ders_saati
+from qa_dersler, developer_dersler
+where qa_dersler.ders_id = developer_dersler.ders_id;
+
+
+select developer_dersler.ders_id, developer_dersler.ders_ismi, developer_dersler.ders_saati
+from qa_dersler, developer_dersler
+where qa_dersler.ders_id = developer_dersler.ders_id;
 
 
 
@@ -65,7 +74,7 @@ select * from developer_dersler;
     SELECT sutun1,sutun2....sutunN
     FROM tablo1 (1. Tablo) 
     INNER JOIN tablo2 (2. Tablo)
-    ON tablo1.sutun = tablo2.sutun;
+    ON tablo1.sutun = tablo2.sutun; -- ortak olan sütunlar buraya yazilir.
 ================================================================================ */
 
 -- Ortak olan dersleri sorgula (INNER JOIN)
@@ -73,11 +82,26 @@ select * from developer_dersler;
 -- qa_dersler = A
 -- developer_dersler : B
 -- sorguyu sadeleştirmek için
+select A.ders_id, A.ders_ismi, A.ders_saati from qa_dersler as A
+inner join developer_dersler as B
+on A.ders_id = B.ders_id;	-- 2 tabloyu burada birlestirdik.
 
 
 
 
-
+/*=============================== LEFT JOIN  ==================================
+    
+    LEFT JOIN, 1. tablodan (sol tablo) SELECT ile ifade edilen sutunlara ait tum
+    satirlari getirir. 
+    Ancak, diger tablodan sadece ON ile belirtilen kosula uyan satirlari getirir. 
+        
+    Syntax
+    -----------
+    SELECT sutun1,sutun2....sutunN
+    FROM tablo1 
+    LEFT JOIN tablo2
+    ON tablo1.sutun = tablo2.sutun;
+==============================================================================*/  
 
 
 -- left join qa derslerini sorgula
@@ -86,19 +110,55 @@ select * from developer_dersler;
 -- developer_dersler : B
 -- sorguyu sadeleştirmek için
 
+select A.ders_id, A.ders_ismi, A.ders_saati from qa_dersler as A
+left join developer_dersler as B
+on A.ders_id = B.ders_id;
+
+select A.ders_id, A.ders_ismi, A.ders_saati from developer_dersler as B
+right join qa_dersler as A
+on A.ders_id = B.ders_id;
 
 
 
 
+/*======================================== RIGHT JOIN  =============================================
+    
+    RIGHT JOIN, 2. tablodan (sag tablo) SELECT ile ifade edilen sutunlara ait tum satirlari getirir. 
+    Ancak, diger tablodan sadece ON ile belirtilen kosula uyan satirlari getirir. 
+        
+    Syntax
+    -----------
+    SELECT sutun1,sutun2....sutunN
+    FROM tablo1 
+    RIGHT JOIN tablo2
+    ON tablo1.sutun = tablo2.sutun;
+====================================================================================================*/ 
 
 
 -- right join developerların derslerini sorgula
 
+select B.ders_id, B.ders_ismi, B.ders_saati from qa_dersler as A
+right join developer_dersler as B
+on A.ders_id = B.ders_id;
 
+select B.ders_id, B.ders_ismi, B.ders_saati from developer_dersler as B
+left join qa_dersler as A
+on A.ders_id = B.ders_id;
 
 
 -- full join
+-- left join + union + right join
 
+select A.ders_id, A.ders_ismi, A.ders_saati from qa_dersler as A
+left join developer_dersler as B
+on A.ders_id = B.ders_id
+union
+select B.ders_id, B.ders_ismi, B.ders_saati from qa_dersler as A
+right join developer_dersler as B
+on A.ders_id = B.ders_id;
+
+
+-- isimlendirmeyi as ile yapiyoruz.
 
 
 

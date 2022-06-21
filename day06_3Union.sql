@@ -14,7 +14,7 @@
     UNION
     SELECT sutun_adi1, sutun_adi2, .. FROM tablo_adi2;
     
-    NOT: UNION operatoru SADECE benzersiz degerleri alir. Benzerli verileri almak
+    NOT: UNION operatoru SADECE benzersiz(uniqe) degerleri alir. Benzerli verileri almak
     için UNION ALL kullanilir.
 ======================================================================================*/ 
 
@@ -52,27 +52,21 @@ select sehir, maas from personel where maas>5000;
 
 
 
-
 /* -----------------------------------------------------------------------------
   SORU2: Mehmet Ozturk ismindeki kisilerin aldigi maaslari ve Istanbul’daki 
   personelin maaslarini yüksekten alçaga dogru siralayarak bir tabloda gosteren 
   sorguyu yaziniz.    
 ------------------------------------------------------------------------------*/  
-select maas, isim as isim_sehir from personel where isim = 'Mehmet Ozturk'
+select isim as isim_sehir, maas from personel where isim='Mehmet Ozturk'
 union
-select maas, sehir from personel where sehir ='Istanbul' order by maas desc;
+select maas, sehir from personel where sehir='Istanbul' order by maas desc;
+
+
 
 
 /* -----------------------------------------------------------------------------
   SORU3: Honda,Ford ve Tofas’ta calisan  personelin ismini listeleyin
 ------------------------------------------------------------------------------*/  
-select isim, sirket from personel where sirket='Honda'
-union
-select isim, sirket  from personel where sirket='Ford'
-union
-select isim, sirket  from personel where sirket='Tofas';
-
-select isim, sirket from personel where sirket in ('Honda','Ford', 'Tofas');
 
 
 
@@ -82,9 +76,9 @@ select isim, sirket from personel where sirket in ('Honda','Ford', 'Tofas');
   SORU4: 5000’den az maas alanlarin bilgileri ile, arti Honda calisani olmayanlarin bilgilerini
  alt alta listeleyen bir sorgu yaziniz. 
 ------------------------------------------------------------------------------*/ 
-select isim, maas, sirket from personel where maas<5000
+select isim, maas, sirket from personel where maas<5000 and sirket !='Honda'
 union
-select isim, maas, sirket from personel where sirket != 'Honda';
+select isim, maas, sirket from personel where sirket !='Honda';
 
 
 
@@ -92,9 +86,9 @@ select isim, maas, sirket from personel where sirket != 'Honda';
   SORU5: Ismi Mehmet Ozturk olanlarin sehirlerini + Istanbul’da calismayanlarin isimlerini ve 
   sehirlerini listeleyen sorguyu yaziniz.
 ------------------------------------------------------------------------------*/
-select isim, sehir from personel where isim = 'Mehmet Ozturk'
-union
-select isim, sehir from personel WHERE sehir <> 'Istanbul';
+
+
+
 
 
 
@@ -125,7 +119,8 @@ select * from personel_bilgi;
   maasini, personel_bilgi tablosundan da (id ilk 3 hanesiyle kaydolmuş=123)
   tel ve cocuk sayisini yazdirin  
 ------------------------------------------------------------------------------*/    
-select sehir as sehir_tel , maas as maas_cocuk_sayisi from personel where id = 123456789
+
+select sehir as sehir_tel, maas as maas_cocuk_sayisi from personel where id= '123456789'
 union
 select tel, cocuk_sayisi from personel_bilgi where id = 123;
 
@@ -135,9 +130,6 @@ select tel, cocuk_sayisi from personel_bilgi where id = 123;
   SORU7: Personel tablosundan Istanbul veya Ankara’da calisanlarin id’lerini
  ve Personel_bilgi tablosundan 2 veya 3 cocugu olanlarin id lerini sorgulayiniz.
 ------------------------------------------------------------------------------*/
-select id from personel where sehir in('Istanbul', 'Ankara')
-union
-select id from personel_bilgi where cocuk_sayisi in (2, 3);
 
 
 
