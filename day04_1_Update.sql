@@ -56,18 +56,18 @@ select * from tedarikciler;
 
 
 --  SORU3: Tedarikciler tablosundaki tüm firma isimlerini 'CASPER' olarak güncelleyeniz. 
-SET SQL_SAFE_UPDATES=0;
+
 update tedarikciler 
 set firma_ismi='CASPER';
 select * from tedarikciler;
 
 -- SORU4: vergi_no’su 101 olan tedarikcinin ismini 'casper' ve irtibat_ismi’ni 'Ali Veli' olarak güncelleyiniz.
-SET SQL_SAFE_UPDATES=0;
+
 update tedarikciler set irtibat_ismi='Ali Veli', firma_ismi='casper' where vergi_no='101';
  select * from tedarikciler;
     
 -- SORU5: firma_ismi casper olan tedarikcinin irtibat_ismini 'Bill Gates' olarak güncelleyiniz.
-SET SQL_SAFE_UPDATES=0;
+
 update tedarikciler set irtibat_ismi='Bill Gate' where firma_ismi='casper';
  select * from tedarikciler;
 
